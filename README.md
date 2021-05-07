@@ -27,3 +27,5 @@ The source repository for the stacks in this devfile registry is located at the 
 ### On-Cluster Devfile Registry
 
 Private, on-cluster devfile registries can be configured on your own Kubernetes cluster, deployed using either the [Devfile Registry Operator](https://github.com/devfile/registry-operator), or the [Devfile Registry Helm Chart](https://github.com/devfile/registry-support/tree/master/deploy/chart/devfile-registry). These devfile registries can be configured with custom devfile stacks suited to your own or your organization's needs.
+
+For more information, please see [Setting up your own Devfile Registry]
