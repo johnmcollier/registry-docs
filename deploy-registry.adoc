@@ -1,0 +1,42 @@
+= Deploy Your Own Devfile Registry
+
+The following document outlines the steps to deploy your own devfile registry on Kubernetes.
+
+It's recommended that you read [Setting up Your Own Devfile Registry] first, to understand how to build your own devfile registry image.
+
+**Note:** At this time, due to https://github.com/devfile/api/issues/388, if you do **not** have publicly signed certificates for your cluster, you must disable TLS for the devfile registry to use the registry with odo.
+
+== Devfile Registry Operator
+
+If you have https://github.com/operator-framework/operator-lifecycle-manager[Operator Lifecycle Manager (OLM)] installed on your cluster, the recommended way to install a devfile registry is to use the https://github.com/devfile/registry-operator[devfile-registry operator].
+
+For information on installing OLM on your Kubernetes cluster, please consult the https://olm.operatorframework.io/docs/getting-started/[OLM QuickStart Guide]
+
+1. Download and install the operator-sdk CLI from https://mirror.openshift.com/pub/openshift-v4/clients/operator-sdk/latest/
+
+2. Run the `operator-sdk run bundle quay.io/devfile/registry-operator-bundle:next` command.
+
+  - At the present moment, since the Devfile Registry operator is not onboarded to OperatorHub, the operator-sdk CLI must be used to install the operator
+
+3. Once the operator is installed, you can than proceed to create `DevfileRegistry` resources on your cluster
+
+== Devfile Registry Helm Chart
+
+If https://github.com/operator-framework/operator-lifecycle-manager[Operator Lifecycle Manager (OLM)] is not installed on your Kubernetes cluster, the Devfile Registry Helm Chart is an alternative to using the Devfile Registry operator.
+
+To install the devfile registry Helm chart:
+
+1. Run the `git clone https://github.com/devfile/registry-support` to clone the repository containing the Helm chart
+
+2. Navigate to the `deploy/chart/devfile-registry` folder.
+
+3. Open the `values.yaml` file in an editor and make the following changes
+
+  - Set `devfileIndex.image` to the image containing your devfile stacks.
+  - Set `devfileIndex.tag` to the image tag for your devfile index image.
+  - If installing on Kubernetes, set `global.ingress.domain` to your cluster's ingress domain.
+  - If installing on OpenShift, set `global.isOpenShift` to true.
+
+4. Run the `helm install devfile-registry ./` command to install the Helm chart.
+
+For more information on the Devfile Registry Helm chart, consult https://github.com/devfile/registry-support/blob/master/deploy/chart/devfile-registry/README.md[its readme].
