@@ -5,12 +5,7 @@
 
 A Devfile Registry is a service that stores and provides https://docs.devfile.io/devfile/2.0.0/user-guide/index.html[devfile stacks] to Kubernetes developer tools like [Odo](https://odo.dev/), https://www.eclipse.org/che/[Eclipse Che] and the OpenShift Developer Console. Devfile registries are based on the https://opencontainers.org/[OCI Specification], and Devfile stacks are stored as OCI-artifacts in the registry. 
 
-Each devfile stack corresponds to a specific runtime or framework (such as NodeJS, Quarkus, Wildfly, etc) and contains the following:
-
-- A https://docs.devfile.io/devfile/2.0.0/user-guide/index.html[devfile.yaml] (Required)
-- A stack logo (Optional)
-- Outer loop resources, such as Dockerfiles, and Kubernetes manifests (Optional)
-- Plugins (Optional)
+Each devfile stack corresponds to a specific runtime or framework (such as NodeJS, Quarkus, Wildfly, etc) and contains resources such as a devfile.yaml, logo, outerloop resources, etc. For more information on the structure of a devfile registry, please see link:registry-structure.adoc[the registry structure document].
 
 == Types of Devfile Registries
 

@@ -32,6 +32,3 @@ Please consult the https://docs.devfile.io/devfile/2.0.0/user-guide/authoring-st
 
 If you wish to run the registry build outside of a Docker build, please consult the https://github.com/devfile/registry-support/tree/master/build-tools[devfile registry build tools readme].
 
-== Deploy Registry
-
-ToDO
