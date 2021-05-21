@@ -1,0 +1,53 @@
+= Devfile registry library
+
+== Overview
+Devfile registry library is used for interacting with devfile registry, consumers can use devfile registry library to list stacks and/or samples of devfile registry, download the stack devfile and the whole stack from devfile registry.
+
+== What's included
+`./library`: package `library` which contains devfile registry library constants, variables and functions, documentations can be found [here](https://pkg.go.dev/github.com/devfile/registry-support/registry-library/library)
+
+`./build.sh`: build script to build `registry` binary to interact with devfile registry
+
+`./registry`: `registry` binary to interact with devfile registry
+
+== How to use it
+. Import devfile registry library.
++ 
+[source, go]
+----
+import (
+    registryLibrary "github.com/devfile/registry-support/registry-library/library"
+)
+----
+
+. Invoke devfile registry library.
+
+- Get the index of devfile registry for various devfile types
++
+[source,go]
+----
+registryIndex, err := registryLibrary.GetRegistryIndex(registry, StackDevfileType, SampleDevfileType)
+if err != nil {
+	return err
+}
+----
+
+- Download the stack devfile from devfile registry
++
+[source,go]
+----
+err := registryLibrary.PullStackByMediaTypesFromRegistry(registry, stack, registryLibrary.DevfileMediaTypeList)
+if err != nil {
+	return err
+}
+----    
+
+- Download the whole stack from devfile registry
++
+[source,go]
+----
+err := registryLibrary.PullStackFromRegistry(registry, stack)
+if err != nil {
+	return err
+}
+----

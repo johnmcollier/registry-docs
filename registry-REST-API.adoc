@@ -1,0 +1,847 @@
+= Registry REST API
+This documentation explains how to use registry REST API
+
+== Gets registry index of stack devfile type
+Gets the registry index file content of stack devfile type from HTTP response
+
+=== HTTP request
+....
+GET http://{registry host}/index
+....
+
+=== Request parameters
+[cols="1,1"]
+|===
+|Parameter|Description
+
+|Registry host
+|The URL/ingress that exposes registry service
+
+|===
+
+=== Request body
+The request body must be empty.
+
+=== Request example
+....
+curl http://devfile-registry.192.168.1.1.nip.io/index
+....
+
+=== Response example
+[source,json]
+----
+[
+  {
+    "name": "java-maven",
+    "version": "1.1.0",
+    "displayName": "Maven Java",
+    "description": "Upstream Maven and OpenJDK 11",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Maven"
+    ],
+    "projectType": "maven",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-maven:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "springbootproject"
+    ]
+  },
+  {
+    "name": "java-openliberty",
+    "version": "0.5.0",
+    "displayName": "Open Liberty",
+    "description": "Java application stack using Open Liberty runtime",
+    "type": "stack",
+    "projectType": "docker",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-openliberty:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "user-app"
+    ]
+  },
+  {
+    "name": "java-quarkus",
+    "version": "1.1.0",
+    "displayName": "Quarkus Java",
+    "description": "Upstream Quarkus with Java+GraalVM",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Quarkus"
+    ],
+    "projectType": "quarkus",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-quarkus:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "community",
+      "redhat-product"
+    ]
+  },
+  {
+    "name": "java-springboot",
+    "version": "1.1.0",
+    "displayName": "Spring Boot®",
+    "description": "Spring Boot® using Java",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Spring"
+    ],
+    "icon": "https://www.eclipse.org/che/images/logo-eclipseche.svg",
+    "globalMemoryLimit": "2674Mi",
+    "projectType": "spring",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-springboot:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "springbootproject"
+    ]
+  },
+  {
+    "name": "java-vertx",
+    "version": "1.1.0",
+    "displayName": "Vert.x Java",
+    "description": "Upstream Vert.x using Java",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Vert.x"
+    ],
+    "projectType": "vertx",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-vertx:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "vertx-http-example",
+      "vertx-istio-circuit-breaker-booster",
+      "vertx-istio-routing-booster",
+      "vertx-secured-http-example-redhat",
+      "vertx-crud-example-redhat",
+      "vertx-istio-security-booster",
+      "vertx-crud-example",
+      "vertx-circuit-breaker-example",
+      "vertx-configmap-example",
+      "vertx-circuit-breaker-example-redhat",
+      "vertx-cache-example-redhat",
+      "vertx-cache-example",
+      "vertx-secured-http-example",
+      "vertx-health-checks-example-redhat",
+      "vertx-http-example-redhat",
+      "vertx-health-checks-example",
+      "vertx-configmap-example-redhat",
+      "vertx-messaging-work-queue-booster",
+      "vertx-istio-distributed-tracing-booster"
+    ]
+  },
+  {
+    "name": "java-wildfly",
+    "version": "1.0.2",
+    "displayName": "WildFly Java",
+    "description": "Upstream WildFly",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "WildFly"
+    ],
+    "projectType": "wildfly",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-wildfly:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "microprofile-config",
+      "microprofile-fault-tolerance",
+      "microprofile-health",
+      "microprofile-jwt",
+      "microprofile-metrics",
+      "microprofile-openapi",
+      "microprofile-opentracing",
+      "microprofile-rest-client"
+    ]
+  },
+  {
+    "name": "java-wildfly-bootable-jar",
+    "version": "1.0.2",
+    "displayName": "WildFly Bootable Jar",
+    "description": "Java stack with WildFly in bootable Jar mode, OpenJDK 11 and Maven 3.5",
+    "type": "stack",
+    "tags": [
+      "RHEL8",
+      "Java",
+      "OpenJDK",
+      "Maven",
+      "WildFly",
+      "Microprofile",
+      "WildFly Bootable"
+    ],
+    "projectType": "WildFly",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-wildfly-bootable-jar:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "microprofile-config",
+      "microprofile-fault-tolerance",
+      "microprofile-health",
+      "microprofile-jwt",
+      "microprofile-metrics",
+      "microprofile-openapi",
+      "microprofile-opentracing",
+      "microprofile-rest-client"
+    ]
+  },
+  {
+    "name": "nodejs",
+    "version": "1.0.0",
+    "displayName": "NodeJS Runtime",
+    "description": "Stack with NodeJS 12",
+    "type": "stack",
+    "tags": [
+      "NodeJS",
+      "Express",
+      "ubi8"
+    ],
+    "projectType": "nodejs",
+    "language": "nodejs",
+    "links": {
+      "self": "devfile-catalog/nodejs:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "nodejs-starter"
+    ]
+  },
+  {
+    "name": "python",
+    "version": "1.0.0",
+    "displayName": "Python",
+    "description": "Python Stack with Python 3.7",
+    "type": "stack",
+    "tags": [
+      "Python",
+      "pip"
+    ],
+    "projectType": "python",
+    "language": "python",
+    "links": {
+      "self": "devfile-catalog/python:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "python-example"
+    ]
+  },
+  {
+    "name": "python-django",
+    "version": "1.0.0",
+    "displayName": "Django",
+    "description": "Python3.7 with Django",
+    "type": "stack",
+    "tags": [
+      "Python",
+      "pip",
+      "Django"
+    ],
+    "projectType": "django",
+    "language": "python",
+    "links": {
+      "self": "devfile-catalog/python-django:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "django-example"
+    ]
+  }
+]
+----
+
+== Gets registry index of sample devfile type
+Gets the registry index file content of sample devfile type from HTTP response
+
+=== HTTP request
+....
+GET http://{registry host}/index/sample
+....
+
+=== Request parameters
+[cols="1,1"]
+|===
+|Parameter|Description
+
+|Registry host
+|The URL/ingress that exposes registry service
+
+|===
+
+=== Request body
+The request body must be empty.
+
+=== Request example
+....
+curl http://devfile-registry.192.168.1.1.nip.io/index/sample
+....
+
+=== Response example
+[source,json]
+---
+[
+  {
+    "name": "nodejs-basic",
+    "displayName": "Basic NodeJS",
+    "description": "A simple Hello World Node.js application",
+    "type": "sample",
+    "tags": [
+      "NodeJS",
+      "Express"
+    ],
+    "icon": "https://github.com/maysunfaisal/node-bulletin-board-2/blob/main/nodejs-icon.png",
+    "projectType": "nodejs",
+    "language": "nodejs",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/redhat-developer/devfile-sample.git"
+      }
+    }
+  },
+  {
+    "name": "code-with-quarkus",
+    "displayName": "Basic Quarkus",
+    "description": "A simple Hello World Java application using Quarkus",
+    "type": "sample",
+    "tags": [
+      "Java",
+      "Quarkus"
+    ],
+    "icon": ".devfile/icon/quarkus.png",
+    "projectType": "quarkus",
+    "language": "java",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/elsony/devfile-sample-code-with-quarkus.git"
+      }
+    }
+  },
+  {
+    "name": "java-springboot-basic",
+    "displayName": "Basic Spring Boot",
+    "description": "A simple Hello World Java Spring Boot application using Maven",
+    "type": "sample",
+    "tags": [
+      "Java",
+      "Spring"
+    ],
+    "icon": ".devfile/icon/spring-logo.png",
+    "projectType": "springboot",
+    "language": "java",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/elsony/devfile-sample-java-springboot-basic.git"
+      }
+    }
+  },
+  {
+    "name": "python-basic",
+    "displayName": "Basic Python",
+    "description": "A simple Hello World application using Python",
+    "type": "sample",
+    "tags": [
+      "Python"
+    ],
+    "icon": ".devfile/icon/python.png",
+    "projectType": "python",
+    "language": "python",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/elsony/devfile-sample-python-basic.git"
+      }
+    }
+  }
+]
+---
+
+== Gets registry index of all devfile types
+Gets the registry index file content of all devfile types from HTTP response
+
+=== HTTP request
+....
+GET http://{registry host}/index/all
+....
+
+=== Request parameters
+[cols="1,1"]
+|===
+|Parameter|Description
+
+|Registry host
+|The URL/ingress that exposes registry service
+
+|===
+
+=== Request body
+The request body must be empty.
+
+=== Request example
+....
+curl http://devfile-registry.192.168.1.1.nip.io/index/all
+....
+
+=== Response example
+[source,json]
+---
+[
+  {
+    "name": "java-maven",
+    "version": "1.1.0",
+    "displayName": "Maven Java",
+    "description": "Upstream Maven and OpenJDK 11",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Maven"
+    ],
+    "projectType": "maven",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-maven:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "springbootproject"
+    ]
+  },
+  {
+    "name": "java-openliberty",
+    "version": "0.5.0",
+    "displayName": "Open Liberty",
+    "description": "Java application stack using Open Liberty runtime",
+    "type": "stack",
+    "projectType": "docker",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-openliberty:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "user-app"
+    ]
+  },
+  {
+    "name": "java-quarkus",
+    "version": "1.1.0",
+    "displayName": "Quarkus Java",
+    "description": "Upstream Quarkus with Java+GraalVM",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Quarkus"
+    ],
+    "projectType": "quarkus",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-quarkus:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "community",
+      "redhat-product"
+    ]
+  },
+  {
+    "name": "java-springboot",
+    "version": "1.1.0",
+    "displayName": "Spring Boot®",
+    "description": "Spring Boot® using Java",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Spring"
+    ],
+    "icon": "https://www.eclipse.org/che/images/logo-eclipseche.svg",
+    "globalMemoryLimit": "2674Mi",
+    "projectType": "spring",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-springboot:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "springbootproject"
+    ]
+  },
+  {
+    "name": "java-vertx",
+    "version": "1.1.0",
+    "displayName": "Vert.x Java",
+    "description": "Upstream Vert.x using Java",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "Vert.x"
+    ],
+    "projectType": "vertx",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-vertx:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "vertx-http-example",
+      "vertx-istio-circuit-breaker-booster",
+      "vertx-istio-routing-booster",
+      "vertx-secured-http-example-redhat",
+      "vertx-crud-example-redhat",
+      "vertx-istio-security-booster",
+      "vertx-crud-example",
+      "vertx-circuit-breaker-example",
+      "vertx-configmap-example",
+      "vertx-circuit-breaker-example-redhat",
+      "vertx-cache-example-redhat",
+      "vertx-cache-example",
+      "vertx-secured-http-example",
+      "vertx-health-checks-example-redhat",
+      "vertx-http-example-redhat",
+      "vertx-health-checks-example",
+      "vertx-configmap-example-redhat",
+      "vertx-messaging-work-queue-booster",
+      "vertx-istio-distributed-tracing-booster"
+    ]
+  },
+  {
+    "name": "java-wildfly",
+    "version": "1.0.2",
+    "displayName": "WildFly Java",
+    "description": "Upstream WildFly",
+    "type": "stack",
+    "tags": [
+      "Java",
+      "WildFly"
+    ],
+    "projectType": "wildfly",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-wildfly:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "microprofile-config",
+      "microprofile-fault-tolerance",
+      "microprofile-health",
+      "microprofile-jwt",
+      "microprofile-metrics",
+      "microprofile-openapi",
+      "microprofile-opentracing",
+      "microprofile-rest-client"
+    ]
+  },
+  {
+    "name": "java-wildfly-bootable-jar",
+    "version": "1.0.2",
+    "displayName": "WildFly Bootable Jar",
+    "description": "Java stack with WildFly in bootable Jar mode, OpenJDK 11 and Maven 3.5",
+    "type": "stack",
+    "tags": [
+      "RHEL8",
+      "Java",
+      "OpenJDK",
+      "Maven",
+      "WildFly",
+      "Microprofile",
+      "WildFly Bootable"
+    ],
+    "projectType": "WildFly",
+    "language": "java",
+    "links": {
+      "self": "devfile-catalog/java-wildfly-bootable-jar:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "microprofile-config",
+      "microprofile-fault-tolerance",
+      "microprofile-health",
+      "microprofile-jwt",
+      "microprofile-metrics",
+      "microprofile-openapi",
+      "microprofile-opentracing",
+      "microprofile-rest-client"
+    ]
+  },
+  {
+    "name": "nodejs",
+    "version": "1.0.0",
+    "displayName": "NodeJS Runtime",
+    "description": "Stack with NodeJS 12",
+    "type": "stack",
+    "tags": [
+      "NodeJS",
+      "Express",
+      "ubi8"
+    ],
+    "projectType": "nodejs",
+    "language": "nodejs",
+    "links": {
+      "self": "devfile-catalog/nodejs:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "nodejs-starter"
+    ]
+  },
+  {
+    "name": "python",
+    "version": "1.0.0",
+    "displayName": "Python",
+    "description": "Python Stack with Python 3.7",
+    "type": "stack",
+    "tags": [
+      "Python",
+      "pip"
+    ],
+    "projectType": "python",
+    "language": "python",
+    "links": {
+      "self": "devfile-catalog/python:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "python-example"
+    ]
+  },
+  {
+    "name": "python-django",
+    "version": "1.0.0",
+    "displayName": "Django",
+    "description": "Python3.7 with Django",
+    "type": "stack",
+    "tags": [
+      "Python",
+      "pip",
+      "Django"
+    ],
+    "projectType": "django",
+    "language": "python",
+    "links": {
+      "self": "devfile-catalog/python-django:latest"
+    },
+    "resources": [
+      "devfile.yaml"
+    ],
+    "starterProjects": [
+      "django-example"
+    ]
+  },
+  {
+    "name": "nodejs-basic",
+    "displayName": "Basic NodeJS",
+    "description": "A simple Hello World Node.js application",
+    "type": "sample",
+    "tags": [
+      "NodeJS",
+      "Express"
+    ],
+    "icon": "https://github.com/maysunfaisal/node-bulletin-board-2/blob/main/nodejs-icon.png",
+    "projectType": "nodejs",
+    "language": "nodejs",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/redhat-developer/devfile-sample.git"
+      }
+    }
+  },
+  {
+    "name": "code-with-quarkus",
+    "displayName": "Basic Quarkus",
+    "description": "A simple Hello World Java application using Quarkus",
+    "type": "sample",
+    "tags": [
+      "Java",
+      "Quarkus"
+    ],
+    "icon": ".devfile/icon/quarkus.png",
+    "projectType": "quarkus",
+    "language": "java",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/elsony/devfile-sample-code-with-quarkus.git"
+      }
+    }
+  },
+  {
+    "name": "java-springboot-basic",
+    "displayName": "Basic Spring Boot",
+    "description": "A simple Hello World Java Spring Boot application using Maven",
+    "type": "sample",
+    "tags": [
+      "Java",
+      "Spring"
+    ],
+    "icon": ".devfile/icon/spring-logo.png",
+    "projectType": "springboot",
+    "language": "java",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/elsony/devfile-sample-java-springboot-basic.git"
+      }
+    }
+  },
+  {
+    "name": "python-basic",
+    "displayName": "Basic Python",
+    "description": "A simple Hello World application using Python",
+    "type": "sample",
+    "tags": [
+      "Python"
+    ],
+    "icon": ".devfile/icon/python.png",
+    "projectType": "python",
+    "language": "python",
+    "git": {
+      "remotes": {
+        "origin": "https://github.com/elsony/devfile-sample-python-basic.git"
+      }
+    }
+  }
+]
+---
+
+== Gets registry stack devfile
+Gets the specific registry stack devfile content from HTTP response
+
+Note: this REST API only returns the content of `devfile.yaml`, it won't return other resources in the stack
+
+=== HTTP request
+```
+GET http://{registry host}/devfiles/{stack}
+```
+
+=== Request parameters
+[cols="1,1"]
+|===
+|Parameter|Description
+
+|Registry host
+|The URL/ingress that exposes registry service
+
+|Stack
+|Registry stack name
+
+|===
+
+=== Request body
+The request body must be empty.
+=
+== Request example
+```
+curl http://devfile-registry.192.168.1.1.nip.io/devfiles/nodejs
+```
+
+=== Response example
+[source,yaml]
+----
+schemaVersion: 2.0.0
+metadata:
+  name: nodejs
+  version: 1.0.0
+starterProjects:
+  - name: nodejs-starter
+    git:
+      remotes:
+        origin: "https://github.com/odo-devfiles/nodejs-ex.git"
+components:
+  - name: runtime
+    container:
+      image: registry.access.redhat.com/ubi8/nodejs-12:1-45
+      memoryLimit: 1024Mi
+      mountSources: true
+      sourceMapping: /project
+      endpoints:
+        - name: http-3000
+          targetPort: 3000
+commands:
+  - id: install
+    exec:
+      component: runtime
+      commandLine: npm install
+      workingDir: /project
+      group:
+        kind: build
+        isDefault: true
+  - id: run
+    exec:
+      component: runtime
+      commandLine: npm start
+      workingDir: /project
+      group:
+        kind: run
+        isDefault: true
+  - id: debug
+    exec:
+      component: runtime
+      commandLine: npm run debug
+      workingDir: /project
+      group:
+        kind: debug
+        isDefault: true
+  - id: test
+    exec:
+      component: runtime
+      commandLine: npm test
+      workingDir: /project
+      group:
+        kind: test
+        isDefault: true
+----
