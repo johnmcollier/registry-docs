@@ -9,6 +9,7 @@ First, we need to set up a Git repository to store the devfile stacks that will 
 The repository can be named however you like, but there are some basic requirements:
 
 1) A `stacks/` folder for storing the devfile stacks in your registry. Each folder under `stacks/` must correpond to a specific stack (e.g. `stacks/java-wildfly/`)
+
 2) An `extraDevfileEntries.yaml` in the root of the repository if any external devfile stacks/samples need to be packaged in the devfile registry
     
     - For the format of this file, please see extra-devfile-entries-schema.adoc[its schema]
@@ -28,7 +29,65 @@ Please consult the https://docs.devfile.io/devfile/2.0.0/user-guide/authoring-st
 
 == Build Registry
 
-**Note:** We strongly recommend doing these steps as part of a build-stage in a multi-stage Docker build. For an example on how this can be done, consult the https://github.com/devfile/registry/blob/master/.ci/Dockerfile[devfile/registry repository's Dockerfile]
+The next step is to build your devfile registry repository into a `devfile index` container image, using the https://github.com/devfile/registry-support/tree/master/build-tools[devfile registry build tools].
 
-If you wish to run the registry build outside of a Docker build, please consult the https://github.com/devfile/registry-support/tree/master/build-tools[devfile registry build tools readme].
+The registry build process takes the contents of your devfile registry Git repository and does the following (in order):
+
+1) Packages each devfile stack's contents based on the supported media types for the Devfile Registry (see xref:registry-structure.adoc[])
+
+2) Validates the content of the devfile registry repository, based on the expected registry structure. (see xref:registry-structure.adoc[])
+
+3) Generates the index.json from the stacks in the repository, as well as any extra stacks or samples mentioned in the `extraDevfileEntries.yaml` file.
+
+4) Builds a `devfile index` container image with the devfile stack contents and index.json
+
+
+**Note:** We strongly recommend doing these steps as part of a build-stage in a multi-stage Docker build. 
+
+Add a Dockerfile to your devfile registry repository that contains the following:
+```
+FROM quay.io/openshift-pipeline/golang:1.15-alpine AS builder
+
+# Install dependencies
+RUN apk add --no-cache git bash
+
+COPY . /registry
+
+# Download the registry build tools
+RUN git clone https://github.com/devfile/registry-support.git /registry-support
+
+# Run the registry build tools
+RUN /registry-support/build-tools/build.sh /registry /build
+
+FROM quay.io/devfile/devfile-index-base:next
+
+COPY --from=builder /build/index.json /index.json
+COPY --from=builder /build/stacks /stacks
+```
+
+Then run `docker build -t devfile-index .` to build the devfile registry in to a container image.
+
+For an example on how this can be done, consult the https://github.com/devfile/registry/blob/master/.ci/Dockerfile[devfile/registry repository's Dockerfile]
+
+If you wish to run the registry build outside of a container build, please consult the https://github.com/devfile/registry-support/tree/master/build-tools[devfile registry build tools readme].
+
+== Tag and Push Registry Container Image
+
+Before deploying the devfile index container image on to a Kubernetes cluster, you must first push it to a container registry of your choice (such as https://hub.docker.com/[DockerHub] or https://quay.io[Quay.io]).
+
+Consult your container regisry's documentation for instructions on pushing container images to the container registry, but it will consist of:
+
+```
+$ docker tag -f devfile-index <registry-hostname>/<registry-username>/devfile-index:latest
+```
+
+followed by
+
+```
+$ docker push <registry-hostname>/<registry-username>/devfile-index:latest
+```
+
+== Deploy Devfile Registry
+
+For information on deploying the devfile registry container image (the `devfile index` image), please see xref:deploy-registry.adoc[]
 
