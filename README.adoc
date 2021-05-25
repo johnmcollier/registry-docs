@@ -5,7 +5,33 @@
 
 A Devfile Registry is a service that stores and provides https://docs.devfile.io/devfile/2.0.0/user-guide/index.html[devfile stacks] to Kubernetes developer tools like [Odo](https://odo.dev/), https://www.eclipse.org/che/[Eclipse Che] and the OpenShift Developer Console. Devfile registries are based on the https://opencontainers.org/[OCI Specification], and Devfile stacks are stored as OCI-artifacts in the registry. 
 
-Each devfile stack corresponds to a specific runtime or framework (such as NodeJS, Quarkus, Wildfly, etc) and contains resources such as a devfile.yaml, logo, outerloop resources, etc. For more information on the structure of a devfile registry, please see link:registry-structure.adoc[the registry structure document].
+Each devfile stack corresponds to a specific runtime or framework (such as NodeJS, Quarkus, Wildfly, etc) and contains resources such as a devfile.yaml, logo, outerloop resources, etc. For more information on the structure of a devfile registry, please see xref:registry-structure.adoc[].
+
+=== Devfile Registry Components
+
+==== index.json
+
+The index.json is the main entrypoint for the tools (such as Odo) that consume devfile registries. It provides important metadata about each devfile stack and sample in the repository (such as the name, supported language/framework, starter projects, and the resources in the each stack)
+
+The index.json tells tools about each stack, as well as its location in the OCI registry, telling the tools where to retrieve it.
+
+=== Devfile Index Server
+
+The server (and resulting container image) that does the following:
+
+1) Hosts the index.json for tools to consume
+
+2) Bootstraps the OCI registry with the devfile stacks
+
+3) Provides an API for interacting with the OCi registry, and to retrieve devfile stacks
+
+For more information on the Index server, please see xref:registry-REST-API.adoc[].
+
+==== OCI Registry
+
+The devfile stacks in a devfile registry are stored in an OCI-compatible artifact registry, currently based on the https://github.com/distribution/distribution[reference implementation of an OCI registry].
+
+When a devfile registry is deployed, the stacks belonging to the devfile registry are pushed to the OCI registry as multi-layer artifacts. For more information on the structure of the devfile stacks within the OCI registry, please see xref:registry-structure.adoc[]
 
 == Types of Devfile Registries
 
@@ -15,7 +41,7 @@ There are multiple types of Devfile registries that are used to provide devfile 
 
 This registry is hosted at https://registry.devfile.io[registry.devfile.io] and provides stacks for various community tools to consume. Examples of such stacks include https://registry.devfile.io/devfiles/nodejs[NodeJS], https://registry.devfile.io/devfiles/java-quarkus[Quarkus], and https://registry.devfile.io/devfiles/java-openliberty[Open Liberty].
 
-The source repository for the stacks in this devfile registry is located at the [devfile/registry](https://github.com/devfile/registry) repository. 
+The source repository for the stacks in this devfile registry is located at the https://github.com/devfile/registry[devfile/registry] repository. 
 
 === OpenShift Product Registry
 
@@ -23,6 +49,6 @@ The source repository for the stacks in this devfile registry is located at the 
 
 === On-Cluster Devfile Registry
 
-Private, on-cluster devfile registries can be configured on your own Kubernetes cluster, deployed using either the [Devfile Registry Operator](https://github.com/devfile/registry-operator), or the [Devfile Registry Helm Chart](https://github.com/devfile/registry-support/tree/master/deploy/chart/devfile-registry). These devfile registries can be configured with custom devfile stacks suited to your own or your organization's needs.
+Private, on-cluster devfile registries can be configured on your own Kubernetes cluster, deployed using either the https://github.com/devfile/registry-operator[Devfile Registry Operator], or the https://github.com/devfile/registry-support/tree/master/deploy/chart/devfile-registry[Devfile Registry Helm Chart]. These devfile registries can be configured with custom devfile stacks suited to your own or your organization's needs.
 
-For more information, please see [Setting up your own Devfile Registry]
+For more information on setting up your own registry, please see xref:setting-up-registry.adoc[]
