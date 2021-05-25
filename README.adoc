@@ -9,21 +9,17 @@ Each devfile stack corresponds to a specific runtime or framework (such as NodeJ
 
 === Devfile Registry Components
 
-==== index.json
+A devfile registry is composed of two components, a "Devfile Index Server", and an OCI registry server.
 
-The index.json is the main entrypoint for the tools (such as Odo) that consume devfile registries. It provides important metadata about each devfile stack and sample in the repository (such as the name, supported language/framework, starter projects, and the resources in the each stack)
-
-The index.json tells tools about each stack, as well as its location in the OCI registry, telling the tools where to retrieve it.
-
-=== Devfile Index Server
+==== Devfile Index Server
 
 The server (and resulting container image) that does the following:
 
-1) Hosts the index.json for tools to consume
+- Hosts metadata about the stacks and samples in the registry for tools to consume (via the index.json file).
 
-2) Bootstraps the OCI registry with the devfile stacks
+- Bootstraps the OCI registry with the devfile stacks
 
-3) Provides an API for interacting with the OCi registry, and to retrieve devfile stacks
+- Provides an API for interacting with the OCi registry, and to retrieve devfile stacks
 
 For more information on the Index server, please see xref:registry-REST-API.adoc[].
 
