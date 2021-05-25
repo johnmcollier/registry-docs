@@ -2,15 +2,17 @@
 
 The following document outlines the steps to deploy your own devfile registry on Kubernetes.
 
-It's recommended that you read [Setting up Your Own Devfile Registry] first, to understand how to build your own devfile registry image.
+It's recommended that you read xref:setting-up-registry.adoc first, to understand how to build your own devfile registry image.
 
-**Note:** At this time, due to https://github.com/devfile/api/issues/388, if you do **not** have publicly signed certificates for your cluster, you must disable TLS for the devfile registry to use the registry with odo.
+**Note:** At this time, due to https://github.com/devfile/api/issues/388, if you do **not** have publicly signed certificates for your cluster, you must disable TLS for the devfile registry to use the devfile registry with odo.
 
 == Devfile Registry Operator
 
 If you have https://github.com/operator-framework/operator-lifecycle-manager[Operator Lifecycle Manager (OLM)] installed on your cluster, the recommended way to install a devfile registry is to use the https://github.com/devfile/registry-operator[devfile-registry operator].
 
 For information on installing OLM on your Kubernetes cluster, please consult the https://olm.operatorframework.io/docs/getting-started/[OLM QuickStart Guide]
+
+=== Installing the Devfile Registry Operator
 
 1. Download and install the operator-sdk CLI from https://mirror.openshift.com/pub/openshift-v4/clients/operator-sdk/latest/
 
@@ -19,6 +21,54 @@ For information on installing OLM on your Kubernetes cluster, please consult the
   - At the present moment, since the Devfile Registry operator is not onboarded to OperatorHub, the operator-sdk CLI must be used to install the operator
 
 3. Once the operator is installed, you can than proceed to create `DevfileRegistry` resources on your cluster
+
+=== Deploying Devfile Registries
+
+Once the Devfile Registry Operator is installed, you can easily deploy devfile registries by doing the following:
+
+==== OpenShift
+
+Installing the devfile registry via the devfile registry operator on an OpenShift cluster can be done in one easy command:
+
+```
+$ cat <<EOF | oc apply -f -
+apiVersion: registry.devfile.io/v1alpha1
+kind: DevfileRegistry
+metadata:
+  name: devfile-registry
+spec:
+  devfileIndexImage: quay.io/devfile/devfile-index:next
+EOF
+```
+
+If you are deploying your own devfile registry, change the `devfileIndexImage` field to the container image that was built in xref:setting-up-registry.adoc[]
+
+==== Kubernetes
+
+Installing the devfile registry on a Kubernetes cluster is similar, but requires setting the k8s.ingressDomain field first.
+
+```
+$ export INGRESS_DOMAIN=<my-ingress-domain>
+```
+
+Followed by:
+
+```
+$ cat <<EOF | kubectl apply -f -
+apiVersion: registry.devfile.io/v1alpha1
+kind: DevfileRegistry
+metadata:
+  name: devfile-registry
+spec:
+  devfileIndexImage: quay.io/devfile/devfile-index:next
+  tls:
+    enabled: false
+  k8s:
+    ingressDomain: $INGRESS_DOMAIN
+EOF
+```
+
+If you are deploying your own devfile registry, change the `devfileIndexImage` field to the container image that was built in xref:setting-up-registry.adoc[]
 
 == Devfile Registry Helm Chart
 
