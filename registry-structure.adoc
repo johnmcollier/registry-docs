@@ -63,6 +63,6 @@ When devfile stacks are stored in an OCI reigstry, it's stored as https://github
 
 As part of the registry build process that packages the stacks into a container image, any files not belonging to the devfile, vsx or logo media types will be lumped together in a tar archive (using the media type `application/x-tar`).
 
-When the registry bootstrap process pushes the stack up to the OCI registry, each file belonging to one of the above media types (`devfile.yaml`, `*.vsx`, `logo.svg`/`logo.png`, `archive.tar`) will be treated as separate layers in the artifact.
+When a devfile registry container image is deployed (or updated), the devfile stacks are pushed to the OCI registry as part of a multi-layer artifact. Each file belonging to one of the above media types (`devfile.yaml`, `*.vsx`, `logo.svg`/`logo.png`, `archive.tar`) will be treated as separate layers in the artifact.
 
 
