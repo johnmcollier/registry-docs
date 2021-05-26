@@ -6,6 +6,7 @@ A file called extraDevfileEntries.yaml can be added under the root of the devfil
 === extraDevfileEntries.yaml schema
 - samples: schema[] - The sample list
 - stacks: schema[] - The stack list
+Stack/Sample attributes:
 - name: string - The stack name
 - displayName: string - The display name of devfile
 - description: string - The description of devfile
@@ -62,9 +63,9 @@ samples:
 ----
 
 == index.json
-A file called index.json contains the metadata of stacks and samples in the registry, user can get the stack or sample generic infomration such as name, language and resources. 
+A file called index.json contains the metadata of stacks and samples in the registry, it's a list of stack and/or sample metadata (devfile index schema). User can get the stack or sample generic information such as name, language and resources.
 
-=== index.json schema
+=== index.json (devfile index) schema
 - name: string - The stack name
 - version: string - The stack version
 - attributes: map[string]apiext.JSON - Map of implementation-dependant free-form YAML attributes
