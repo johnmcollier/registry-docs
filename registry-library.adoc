@@ -1,0 +1,52 @@
+= Devfile registry library
+
+== Overview
+Devfile registry library is used for interacting with devfile registry, consumers can use devfile registry library to list stacks and/or samples of devfile registry, download the stack devfile and the whole stack from devfile registry.
+
+== How to use it
+. Import devfile registry library.
++ 
+[source, go]
+----
+import (
+    registryLibrary "github.com/devfile/registry-support/registry-library/library"
+)
+----
+
+. Invoke devfile registry library.
+
+* Get the index.json of devfile registry for various devfile types
++
+[source,go]
+----
+registryIndex, err := registryLibrary.GetRegistryIndex(registry, StackDevfileType, SampleDevfileType)
+if err != nil {
+	return err
+}
+----
+
+* Download the stack resource from devfile registry to the specified directory.
++
+[source,go]
+----
+err := registryLibrary.PullStackByMediaTypesFromRegistry(registry, stack, registryLibrary.DevfileMediaTypeList, destDir)
+if err != nil {
+	return err
+}
+----
+Note: currently we support to download the stack resource with the following media types
+- "application/vnd.devfileio.devfile.layer.v1": devfile media type
+- "application/vnd.devfileio.vsx.layer.v1.tar": vsx media type
+- "image/svg+xml": svg logo media type
+- "image/png": png logo media type
+- "application/x-tar": archive media type
+
+* Download the whole stack from devfile registry
++
+[source,go]
+----
+err := registryLibrary.PullStackFromRegistry(registry, stack)
+if err != nil {
+	return err
+}
+----
